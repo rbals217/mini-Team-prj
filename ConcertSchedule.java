@@ -21,5 +21,5 @@ public class ConcertSchedule {
 
     private LocalDate concertDate;        // 공연날짜
 
-    private LocalTime concertTime;        // 공연 시작시간
+    private LocalTime concertTime;        // 공연 시작시간 
 }
