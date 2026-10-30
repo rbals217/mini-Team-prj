@@ -12,7 +12,7 @@ public class ReservationSeat {
     private Long id;
 
     // 어떤  회차에 속한 좌석인지
-    @ManyToOne
+    @ManyToOne 
     @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
