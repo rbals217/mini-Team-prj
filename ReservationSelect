@@ -170,17 +170,12 @@ const ReservationSelect = () => {
     const scheduleData = {
       concertDate: selectedDate,
       concertTime: selectedSession.time + ":00",
-      vipSeats: selectedSession.seats.VIP,
-      rSeats: selectedSession.seats.R,
-      sSeats: selectedSession.seats.S,
-      aSeats: selectedSession.seats.A,
-      casting: selectedSession.casting,
     };
 
     try {
       setIsSaving(true);
 
-      // 백엔드 DB에 회차 저장
+      // 백엔드 DB에 회차 저장, 기존 회차가 있으면 기존 ID사용, 없으면 새 ID 반환
       const response = await AxiosApi.createSchedule(id, scheduleData);
 
       // DB에서 생성된 실제 회차 ID
@@ -189,6 +184,10 @@ const ReservationSelect = () => {
       if (!savedScheduleId) {
         throw new Error("저장된 회차 ID를 확인할 수 없습니다.");
       }
+      console.log("공연 ID:", id);
+      console.log("선택 날짜:", selectedDate);
+      console.log("선택 시간:", selectedSession.time);
+      console.log("최종 회차 ID:", savedScheduleId);
 
       // 좌석 선택 페이지로 이동
       navigate(`/reservation/seat/${id}`, {
