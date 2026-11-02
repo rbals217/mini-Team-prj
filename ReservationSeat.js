@@ -236,9 +236,8 @@ const ReservationSeat = () => {
     setLoading(true);
     try {
       alert("3. axios 호출 직전");
-      const res = await axios.post("http://localhost:8111/api/reservations", {
+      const res = await axios.post("http://localhost:8111/reservations", {
         memberId: memberId,
-        scheduleId: sessionId ?? 1,
         seatNumbers: selectedSeats,
       });
       navigate(`/reservation/payment/${res.data.reservationId}`, {
@@ -249,14 +248,12 @@ const ReservationSeat = () => {
           reservation: res.data,
         },
       });
-    } catch (e) {
-      console.error(e);
-      alert(
-        "예매 실패:" +
-          e.message +
-          "\n서버 응답:" +
-          JSON.stringify(e.response?.data),
-      );
+    } catch (error) {
+      console.error("예매 실패 상태:", error.reponse?.status);
+      console.error("서버 오류 내용:", error.reponse?.data);
+      console.error("오류 메시지:", error.message);
+
+      alert("예매 저장에 실패했습니다.");
     } finally {
       setLoading(false);
     }
